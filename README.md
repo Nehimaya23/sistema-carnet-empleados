@@ -19,3 +19,16 @@ Sistema web desarrollado para la gestión de empleados y generación de carnets 
 - Docker Compose
 
 ## Estructura del proyecto
+
+```text
+src/
+├── assets/
+├── auth.php
+├── buscar.php
+├── carnet.php
+├── config.php
+├── db_test.php
+├── index.php
+├── login.php
+├── logout.php
+└── sql/
