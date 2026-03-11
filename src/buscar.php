@@ -26,8 +26,7 @@ function edad(?string $fecha): string {
 $nombreCompleto = trim(($e['nombres'] ?? '') . ' ' . ($e['apellidos'] ?? ''));
 $iniciales = strtoupper(substr(trim($e['nombres'] ?? 'X'), 0, 1) . substr(trim($e['apellidos'] ?? ''), 0, 1));
 $fotoPath = trim($e['foto_path'] ?? '');
-$fotoUrl  = $fotoPath ? $fotoPath : null; // si guardas rutas tipo /uploads/xxx.webp
-
+$fotoUrl  = $fotoPath ? $fotoPath : null;
 ?>
 <!doctype html>
 <html lang="es">
@@ -44,7 +43,7 @@ $fotoUrl  = $fotoPath ? $fotoPath : null; // si guardas rutas tipo /uploads/xxx.
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="/assets/css/styles.css?v=10">
+  <link rel="stylesheet" href="/assets/css/main.css?v=11">
 </head>
 
 <body>
@@ -61,7 +60,7 @@ $fotoUrl  = $fotoPath ? $fotoPath : null; // si guardas rutas tipo /uploads/xxx.
 
   <div class="dropdown">
     <button class="pb-avatar-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <div class="pb-avatar"><?= strtoupper(substr($_SESSION['user']['username'],0,1)) ?></div>
+      <div class="pb-avatar"><?= strtoupper(substr($_SESSION['user']['username'], 0, 1)) ?></div>
     </button>
 
     <ul class="dropdown-menu dropdown-menu-end pb-menu">
@@ -94,31 +93,56 @@ $fotoUrl  = $fotoPath ? $fotoPath : null; // si guardas rutas tipo /uploads/xxx.
         <a class="pb-back" href="/index.php" title="Volver">
           <i class="bi bi-arrow-left"></i>
         </a>
+
         <div>
-          <div class="pb-employee-name"><?= htmlspecialchars($nombreCompleto ?: 'Empleado') ?></div>
+          <div class="pb-employee-name">
+            <?= htmlspecialchars($nombreCompleto ?: 'Empleado') ?>
+          </div>
+
           <div class="pb-employee-sub">
-            <span class="pb-chip-mini"><i class="bi bi-person-vcard"></i> DNI: <?= htmlspecialchars($e['dni']) ?></span>
+            <span class="pb-chip-mini">
+              <i class="bi bi-person-vcard"></i>
+              DNI: <?= htmlspecialchars($e['dni']) ?>
+            </span>
+
             <?php if (!empty($e['no_personal'])): ?>
-              <span class="pb-chip-mini"><i class="bi bi-hash"></i> No. personal: <?= htmlspecialchars($e['no_personal']) ?></span>
+            <span class="pb-chip-mini">
+              <i class="bi bi-hash"></i>
+              No. personal: <?= htmlspecialchars($e['no_personal']) ?>
+            </span>
             <?php endif; ?>
           </div>
         </div>
       </div>
 
-      <div class="pb-employee-actions">
-       <a class="btn pb-btn pb-btn-solid text-white"
-   href="#"
-   onclick="imprimirCarnet('<?= urlencode($e['dni']) ?>'); return false;">
-   <i class="bi bi-credit-card-2-front me-1"></i> Carnet
-</a>
-        <a class="btn pb-btn pb-btn-outline" href="/ficha.php?dni=<?= urlencode($e['dni']) ?>" target="_blank" rel="noopener">
-          <i class="bi bi-file-earmark-text me-1"></i> Ficha
-        </a>
-      </div>
+     <div class="pb-actions-bar">
+
+  <a class="pb-action-btn is-primary"
+     href="#"
+     onclick="imprimirCarnet('<?= urlencode($e['dni']) ?>'); return false;">
+    <i class="bi bi-credit-card-2-front"></i>
+    <span>Carnet</span>
+  </a>
+
+  <a class="pb-action-btn"
+     href="#"
+     onclick="imprimirFicha('<?= urlencode($e['dni']) ?>'); return false;">
+    <i class="bi bi-file-earmark-text"></i>
+    <span>Ficha</span>
+  </a>
+
+  <a class="pb-action-btn"
+     href="/acta.php?dni=<?= urlencode($e['dni']) ?>"
+     target="_blank"
+     rel="noopener">
+    <i class="bi bi-file-earmark-text"></i>
+    <span>Acta</span>
+  </a>
+
+</div>
     </div>
 
     <div class="pb-employee-grid">
-      <!-- Columna izquierda (foto + resumen) -->
       <aside class="pb-card pb-card-soft">
         <div class="pb-photo">
           <?php if ($fotoUrl): ?>
@@ -146,7 +170,6 @@ $fotoUrl  = $fotoPath ? $fotoPath : null; // si guardas rutas tipo /uploads/xxx.
         </div>
       </aside>
 
-      <!-- Columna derecha (detalle) -->
       <div class="pb-card pb-card-soft">
         <div class="pb-section-title">
           <i class="bi bi-info-circle"></i> Información general
@@ -186,15 +209,12 @@ $fotoUrl  = $fotoPath ? $fotoPath : null; // si guardas rutas tipo /uploads/xxx.
       </div>
     </div>
 
-    
-
   </section>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // Fondo network (mismo que ya usas)
   const canvas = document.getElementById("bg-network");
   const ctx = canvas.getContext("2d");
 
@@ -215,7 +235,8 @@ $fotoUrl  = $fotoPath ? $fotoPath : null; // si guardas rutas tipo /uploads/xxx.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (const p of particles) {
-      p.x += p.vx; p.y += p.vy;
+      p.x += p.vx;
+      p.y += p.vy;
       if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
       if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
@@ -229,7 +250,7 @@ $fotoUrl  = $fotoPath ? $fotoPath : null; // si guardas rutas tipo /uploads/xxx.
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
+        const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < 120) {
           ctx.beginPath();
@@ -246,23 +267,29 @@ $fotoUrl  = $fotoPath ? $fotoPath : null; // si guardas rutas tipo /uploads/xxx.
   draw();
 
   window.addEventListener("resize", resize);
-</script>
 
-
-<script>
-function imprimirCarnet(dni) {
-
+  function imprimirCarnet(dni) {
     const url = '/carnet.php?dni=' + dni;
-
-    const popup = window.open(
-        url,
-        'printCarnet',
-        'width=420,height=720'
-    );
+    const popup = window.open(url, 'printCarnet', 'width=420,height=720');
 
     if (!popup) {
-        alert('El navegador bloqueó la ventana emergente. Debes permitir popups.');
+      alert('El navegador bloqueó la ventana emergente. Debes permitir popups.');
     }
+  }
+  function imprimirFicha(dni) {
+
+  const url = '/ficha.php?dni=' + dni;
+
+  const popup = window.open(
+    url,
+    'printFicha',
+    'width=900,height=1100'
+  );
+
+  if (!popup) {
+    alert('El navegador bloqueó la ventana emergente. Debes permitir popups.');
+  }
+
 }
 </script>
 </body>

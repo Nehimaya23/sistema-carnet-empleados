@@ -1,0 +1,143 @@
+@page{
+  size: 8.5in 11in;
+  margin: 0;
+}
+
+html, body{
+  margin: 0;
+  padding: 0;
+  width: 8.5in;
+  height: 11in;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  background: #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.ficha{
+  width: 8.5in;
+  height: 11in;
+  position: relative;
+  overflow: hidden;
+  background-image: url('../img/Ficha&Acta.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* FOTO SUPERIOR */
+.ficha-photo{
+  position: absolute;
+  top: 2.0in;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.35in;
+  height: 1.65in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ficha-photo img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.ficha-photo-empty{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 82px;
+  color: #222;
+}
+
+/* BLOQUE CENTRAL */
+.ficha-body{
+  position: absolute;
+  top: 4.05in;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4.2in;
+  text-align: center;
+  color: #111;
+}
+
+.ficha-body h1{
+  margin: 0 0 0.18in 0;
+  font-size: 0.28in;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.campo{
+  margin-bottom: 0.16in;
+}
+
+.label{
+  font-size: 0.18in;
+  font-weight: 800;
+  margin-bottom: 0.03in;
+}
+
+.value{
+  font-size: 0.17in;
+  line-height: 1.25;
+}
+
+.obs{
+  margin-top: 0.32in;
+}
+
+/* PIE */
+.ficha-footer-left,
+.ficha-footer-right{
+  position: absolute;
+  bottom: 0.48in;
+  color: #ffffff;
+  font-size: 0.14in;
+  font-weight: 500;
+}
+
+.ficha-footer-left{
+  left: 1.9in;
+}
+
+.ficha-footer-right{
+  right: 0.36in;
+}
+
+@media print{
+  html, body{
+    width: 8.5in;
+    height: 11in;
+  }
+}
+.titulo-ficha{
+
+position:absolute;
+
+top:1.2in;
+
+left:50%;
+
+transform:translateX(-50%);
+
+font-size:32px;
+
+font-weight:900;
+
+letter-spacing:2px;
+
+color:#1b3b5a;
+
+text-transform:uppercase;
+
+}
